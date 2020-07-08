@@ -4,6 +4,57 @@ import { DatePicker } from 'antd';
 import 'antd/dist/antd.css';
 import moment from 'moment-timezone';
 
+const timeOptions = [
+  { value: '00:00', label: '12:00 am', disabled: false },
+  { value: '00:30', label: '12:30 am', disabled: false },
+  { value: '01:00', label: '1:00 am', disabled: false },
+  { value: '01:30', label: '1:30 am', disabled: false },
+  { value: '02:00', label: '2:00 am', disabled: false },
+  { value: '02:30', label: '2:30 am', disabled: false },
+  { value: '03:00', label: '3:00 am', disabled: false },
+  { value: '03:30', label: '3:30 am', disabled: false },
+  { value: '04:00', label: '4:00 am', disabled: false },
+  { value: '04:30', label: '4:30 am', disabled: false },
+  { value: '05:00', label: '5:00 am', disabled: false },
+  { value: '05:30', label: '5:30 am', disabled: false },
+  { value: '06:00', label: '6:00 am', disabled: false },
+  { value: '06:30', label: '6:30 am', disabled: false },
+  { value: '07:00', label: '7:00 am', disabled: false },
+  { value: '07:30', label: '7:30 am', disabled: false },
+  { value: '08:00', label: '8:00 am', disabled: false },
+  { value: '08:30', label: '8:30 am', disabled: false },
+  { value: '09:00', label: '9:00 am', disabled: false },
+  { value: '09:30', label: '09:30 am', disabled: false },
+  { value: '10:00', label: '10:00 am', disabled: false },
+  { value: '10:30', label: '10:30 am', disabled: false },
+  { value: '11:00', label: '11:00 am', disabled: false },
+  { value: '11:30', label: '11:30 am', disabled: false },
+  { value: '12:00', label: '12:00 pm', disabled: false },
+  { value: '12:30', label: '12:30 pm', disabled: false },
+  { value: '13:00', label: '1:00 pm', disabled: false },
+  { value: '13:30', label: '1:30 pm', disabled: false },
+  { value: '14:00', label: '2:00 pm', disabled: false },
+  { value: '14:30', label: '2:30 pm', disabled: false },
+  { value: '15:00', label: '3:00 pm', disabled: false },
+  { value: '15:30', label: '3:30 pm', disabled: false },
+  { value: '16:00', label: '4:00 pm', disabled: false },
+  { value: '16:30', label: '4:30 pm', disabled: false },
+  { value: '17:00', label: '5:00 pm' , disabled: false},
+  { value: '17:30', label: '5:30 pm', disabled: false },
+  { value: '18:00', label: '6:00 pm', disabled: false },
+  { value: '18:30', label: '6:30 pm', disabled: false },
+  { value: '19:00', label: '7:00 pm', disabled: false },
+  { value: '19:30', label: '7:30 pm', disabled: false },
+  { value: '20:00', label: '8:00 pm', disabled: false},
+  { value: '20:30', label: '8:30 pm', disabled: false },
+  { value: '21:00', label: '9:00 pm', disabled: false },
+  { value: '21:30', label: '9:30 pm', disabled: false },
+  { value: '22:00', label: '10:00 pm', disabled: false },
+  { value: '22:30', label: '10:30 pm', disabled: false },
+  { value: '23:00', label: '11:00 pm', disabled: false },
+  { value: '23:30', label: '11:30 pm', disabled: false }
+];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +63,7 @@ class App extends React.Component {
       selectedDate:'',
       selectedTime:'',
       selectedDateTime:'',
+      selectedDateTimeAmPm:'',
       calculatedDateTimeInUTC:'',
     };
     this.onDateChange = this.onDateChange.bind(this);
@@ -31,12 +83,13 @@ class App extends React.Component {
   }
   onTimeChange(event) {
     console.log(event.target.value);
-    this.setState({selectedTime:event.target.value+':00'});
+    this.setState({selectedTime:event.target.value});
   }
 
   timeConvert(event) {
     let datetime=this.state.selectedDate+' '+this.state.selectedTime;
     this.setState({selectedDateTime:datetime});
+    this.setState({selectedDateTimeAmPm:moment(datetime).format('YYYY-MM-DD hh:mm:ss A')});
     if(this.state.selectedTimeZone === 'est'){
       console.log(moment.tz(datetime, "America/New_York").utc().format('YYYY-MM-DD hh:mm:ss A zz')); //EST - UTC
       this.setState({calculatedDateTimeInUTC:moment.tz(datetime, "America/New_York").utc().format('YYYY-MM-DD HH:mm:ss')});
@@ -64,7 +117,7 @@ class App extends React.Component {
   render() {
     return(
       <>
-        <div style={{width: 400, height: 300, border: '5px solid green', marginBottom: '50px', margin: '0 auto', fontSize: '18px'}}>
+        <div style={{width: 600, height: 300, border: '5px solid CRIMSON', marginBottom: '50px', margin: '0 auto', fontSize: '18px'}}>
           <h1>User preference page :</h1>
           <h3>Select your time zone :</h3>
           <div onChange={this.setTimeZone.bind(this)}>
@@ -76,42 +129,23 @@ class App extends React.Component {
           </div>
         </div>
         <br/><br/>
-        <div style={{width: 400, height: 450, border: '5px solid green', margin: '0 auto', fontSize: '18px'}}>
+        <div style={{width: 600, height: 500, border: '5px solid green', margin: '0 auto', fontSize: '18px'}}>
           <h1>Date time select page :</h1>
           Select date: &nbsp;&nbsp;&nbsp; <DatePicker onChange={this.onDateChange}/><br/><br/>
           Select time: &nbsp;&nbsp;&nbsp;
-          <select name="time"  onChange={this.onTimeChange}>
-            <option value="00:00">00:00</option>
-            <option value="01:00">01:00</option>
-            <option value="02:00">02:00</option>
-            <option value="03:00">03:00</option>
-            <option value="04:00">04:00</option>
-            <option value="05:00">05:00</option>
-            <option value="06:00">06:00</option>
-            <option value="07:00">07:00</option>
-            <option value="08:00">08:00</option>
-            <option value="09:00">09:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="12:00">12:00</option>
-            <option value="13:00">13:00</option>
-            <option value="14:00">14:00</option>
-            <option value="15:00">15:00</option>
-            <option value="16:00">16:00</option>
-            <option value="17:00">17:00</option>
-            <option value="18:00">18:00</option>
-            <option value="19:00">19:00</option>
-            <option value="20:00">20:00</option>
-            <option value="21:00">21:00</option>
-            <option value="22:00">22:00</option>
-            <option value="23:00">23:00</option>
-          </select>
+          <select onChange={this.onTimeChange}>{timeOptions.map((timeop) =>
+            <option key={timeop.value} value={timeop.value}>{timeop.label}</option>
+          )}</select>
+
           <br/><br/>
-          <button type="" onClick={this.timeConvert}>Submit</button>
+          <button type="" onClick={this.timeConvert}>Calculate UTC</button>
           <br/><br/>
-          Your local Time :{this.state.selectedDateTime}<br/><br/>
-          Time in UTC :{this.state.calculatedDateTimeInUTC}<br/><br/>
-          <p style={{ color:"green"}}> * Tested with worldtimebuddy.com</p>
+          <h3>Output :</h3>
+          Your local Time :{this.state.selectedDateTimeAmPm}<br/><br/>
+          <b>Time in UTC (24 hours format): {this.state.calculatedDateTimeInUTC}</b><br/>
+          <p>This 24 hour format UTC time will send to backend for save</p><br/>
+          <p style={{ color:"green"}}> * Tested with
+            <a href="https://www.worldtimebuddy.com/?pl=1&lid=8,5,6,100&h=8" target="_blank"> worldtimebuddy.com</a></p>
         </div>
 
       </>

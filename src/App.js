@@ -106,6 +106,10 @@ class App extends React.Component {
       console.log(moment.tz(datetime, "America/Chicago").utc().format('YYYY-MM-DD hh:mm:ss A zz')); //CST - UTC
       this.setState({calculatedDateTimeInUTC:moment.tz(datetime, "America/Chicago").utc().format('YYYY-MM-DD HH:mm:ss')});
     }
+    else if(this.state.selectedTimeZone === 'honolulu'){
+      console.log(moment.tz(datetime, "Pacific/Honolulu").utc().format('YYYY-MM-DD hh:mm:ss A zz')); //CST - UTC
+      this.setState({calculatedDateTimeInUTC:moment.tz(datetime, "Pacific/Honolulu").utc().format('YYYY-MM-DD HH:mm:ss')});
+    }
     else{
       this.setState({calculatedDateTimeInUTC:''});
     }
@@ -122,6 +126,7 @@ class App extends React.Component {
             <input type="radio" value="est" name="time_zone" checked={this.state.selectedTimeZone==='est'}/> EST <br/>
             <input type="radio" value="cst" name="time_zone" checked={this.state.selectedTimeZone==='cst'}/> CST <br/>
             <input type="radio" value="mst" name="time_zone" checked={this.state.selectedTimeZone==='mst'}/> MST <br/>
+            <input type="radio" value="honolulu" name="time_zone" checked={this.state.selectedTimeZone==='mst'}/> Honolulu Hawaii <br/>
           </div>
         </div>
         <br/><br/>

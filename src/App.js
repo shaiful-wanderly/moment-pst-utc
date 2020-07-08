@@ -125,7 +125,7 @@ class App extends React.Component {
             <input type="radio" value="est" name="time_zone" checked={this.state.selectedTimeZone==='est'}/> EST <br/>
             <input type="radio" value="cst" name="time_zone" checked={this.state.selectedTimeZone==='cst'}/> CST <br/>
             <input type="radio" value="mst" name="time_zone" checked={this.state.selectedTimeZone==='mst'}/> MST <br/>
-            <input type="radio" value="utc" name="time_zone" checked={this.state.selectedTimeZone==='utc'}/> UTC <br/>
+            {/*<input type="radio" value="utc" name="time_zone" checked={this.state.selectedTimeZone==='utc'}/> UTC <br/>*/}
           </div>
         </div>
         <br/><br/>
